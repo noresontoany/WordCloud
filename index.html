@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Word Cloud</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="static/jquery.awesomeCloud-0.2.js"></script>
+</head>
+<body>
+<div id="wordcloud" style="border:1px solid #f00;height:150px;width:150px;">
+	<span data-weight="20">word</span>
+	<span data-weight="5">another</span>
+	<span data-weight="7">things</span>
+	<span data-weight="23">super</span>
+	<span data-weight="10">cloud</span>
+</div>
+<script>
+  $(document).ready(function() {
+    if (typeof $.fn.awesomeCloud === 'undefined') {
+      console.log('awesomeCloud plugin is not loaded.');
+    } else {
+      console.log('awesomeCloud plugin is loaded.');
+      var settings = {
+        "size" : {
+          "grid" : 16
+        },
+        "options" : {
+          "color" : "random-dark",
+          "printMultiplier" : 3
+        },
+        "font" : "Futura, Helvetica, sans-serif",
+        "shape" : "square"
+      };
+      $("#wordcloud").awesomeCloud(settings);
+    }
+  });
+</script>
+</body>
+</html>
