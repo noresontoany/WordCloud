@@ -3,12 +3,14 @@ import time
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
+import random
 
 messages = []
 _old_size = len(messages)
 @aiohttp_jinja2.template('index.html')
 async def index(request):
-    return {'messages': messages}
+    words = [{'word': msg, 'weight': random.randrange(10, 20)} for msg in messages]
+    return {'messages': messages, 'words': words}
 async def handle(request):
     name = request.match_info.get('name', "Anonymous")
     text = "Hello, " + name
