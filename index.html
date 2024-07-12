@@ -45,7 +45,7 @@ series.labels.template.setup = function(label) {
 async function fetchData() {
                         const response = await fetch('/chart-data');
                         const data = await response.json();
-                        console.log('Data fetched:', data);  // Логирование данных
+                        console.log('Data fetched:', data);
                         series.data.setAll(data);
 
                 };
@@ -56,6 +56,6 @@ async function fetchData() {
 
 </script>
 
-<!-- HTML -->
+
 <div id="chartdiv">
 </div>
