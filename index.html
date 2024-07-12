@@ -1,41 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" http-equiv="refresh" content="1">
-  <title>Word Cloud</title>
 
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
 
-  <link rel="stylesheet" href="styles.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  <script src="static/jquery.awesomeCloud-0.2.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/wc.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
-</head>
-<body>
-<div id="wordcloud" style="border:1px solid #f00;height:1000px;width:1000px;">
-	{% for word in words %}
-        <span data-weight="{{ word.weight }}"> {{ word.word }}</span>
-    {% endfor %}
-</div>
 <script>
-  $(document).ready(function() {
-    if (typeof $.fn.awesomeCloud === 'undefined') {
-      console.log('awesomeCloud plugin is not loaded.');
-    } else {
-      console.log('awesomeCloud plugin is loaded.');
-      var settings = {
-        "size" : {
-          "grid" : 16
-        },
-        "options" : {
-          "color" : "random-dark",
-          "printMultiplier" : 3
-        },
-        "font" : "Futura, Helvetica, sans-serif",
-        "shape" : "square"
-      };
-      $("#wordcloud").awesomeCloud(settings);
-    }
-  });
+am5.ready(function() {
+
+var root = am5.Root.new("chartdiv");
+
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+
+var series = root.container.children.push(am5wc.WordCloud.new(root, {
+  maxCount: 100,
+  minWordLength: 2,
+  minFontSize: am5.percent(6),
+  maxFontSize: am5.percent(8),
+  angles: [0]
+}));
+
+var colorSet = am5.ColorSet.new(root, { step: 1 });
+
+series.labels.template.setAll({
+  paddingTop: 5,
+  paddingBottom: 5,
+  paddingLeft: 5,
+  paddingRight: 5,
+  fontFamily: "Courier New"
+});
+
+series.labels.template.setup = function(label) {
+  label.set("background", am5.RoundedRectangle.new(root, { fillOpacity: 1, fill: colorSet.next() }))
+}
+
+async function fetchData() {
+                        const response = await fetch('/chart-data');
+                        const data = await response.json();
+                        console.log('Data fetched:', data);  // Логирование данных
+                        series.data.setAll(data);
+
+                };
+    fetchData();
+    setInterval(fetchData, 5000);
+
+}); // end am5.ready()
+
 </script>
-</body>
-</html>
+
+<!-- HTML -->
+<div id="chartdiv">
+</div>
