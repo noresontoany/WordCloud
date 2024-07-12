@@ -6,15 +6,17 @@ from aiohttp import web
 import random
 
 messages = []
+words = []
 _old_size = len(messages)
 @aiohttp_jinja2.template('index.html')
 async def index(request):
-    words = [{'word': msg, 'weight': random.randrange(10, 20)} for msg in messages]
-    return {'messages': messages, 'words': words}
+    return {'words': words}
+@aiohttp_jinja2.template('text.html')
 async def handle(request):
     name = request.match_info.get('name', "Anonymous")
     text = "Hello, " + name
-    return web.Response(text=str(messages))
+    # words = [{'word': msg, 'weight': random.randrange(10, 20)} for msg in messages]
+    return {'words': words}
 
 async def poster(request):
     d = str(request.match_info)
@@ -22,6 +24,9 @@ async def poster(request):
     d3 = d2.get('message')
     if d3 is not None:
         messages.append(d3)
+        words.append({'word': d3, 'weight': random.randrange(10, 20)})
+
+    print(words[-1])
     return web.Response(text=d + str(messages))
 
 
