@@ -46,7 +46,7 @@ async function fetchData() {
                         const response = await fetch('/chart-data');
                         const data = await response.json();
                         console.log('Data fetched:', data);
-                        series.data.setAll(data);
+                        series.data.pushAll(data);
 
                 };
     fetchData();
@@ -57,5 +57,5 @@ async function fetchData() {
 </script>
 
 
-<div id="chartdiv">
+<div id="chartdiv" style="position: relative; width: 100%; height: 100%;">
 </div>

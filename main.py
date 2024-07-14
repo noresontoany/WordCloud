@@ -32,23 +32,10 @@ async def poster(request):
     return web.Response(text=d + str(messages))
 
 async def get_chart_data(request):
-    if _old_size == len(messages):
-        return None
     chart_data = []
     for m in messages:
         chart_data.append({"category": m, "value": 2.1})
-
-    # chart_data.append({"category": , "value": 2.1})
-    # chart_data = [
-    #     {"category": "Lorem ipsum\ndolorsit amet,\nconsectetur", "value": 2.1},
-    #     {"category": "Sed do eiusmod\ntempor incididunt\nut labore et", "value": 2.2},
-    #     {"category": "Duis aute irure\ndolor in\nreprehenderit", "value": 2.3},
-    #     {"category": "Voluptate velit\nesse cillum dolore\neu fugiat nulla", "value": 2.1},
-    #     {"category": "Excepteur sint\noccaecat cupidatat\nnon proident", "value": 2.2},
-    #     {"category": "Nupidatat non proident", "value": 2},
-    #     {"category": "Incididunt ut labore et", "value": 2.5},
-    #     {"category": "Voluptate velit\ncillum dolore eu nulla", "value": 2.1}
-    # ]
+    messages.clear()
     return web.json_response(chart_data)
 
 

@@ -3,9 +3,8 @@ import asyncio
 
 async def send_message():
     async with aiohttp.ClientSession() as session:
-
-        for i in range(100):
-            message = "message"
+        while True:
+            message = input("message->")
             async with session.post('http://localhost:8000/p', data={'message': message}) as resp:
                 pass
                 # print(name + ": " + message)
