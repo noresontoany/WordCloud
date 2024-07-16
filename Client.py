@@ -5,7 +5,7 @@ async def send_message():
     async with aiohttp.ClientSession() as session:
         while True:
             message = input("message->")
-            async with session.post('http://localhost:8000/p', data={'message': message}) as resp:
+            async with session.post('http://localhost:8000/poster', data={'message': message}) as resp:
                 pass
                 # print(name + ": " + message)
 

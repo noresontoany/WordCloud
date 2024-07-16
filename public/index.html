@@ -11,7 +11,7 @@
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
 <script>
-am5.ready(function() {
+    am5.ready(function() {
 
 var root = am5.Root.new("chartdiv");
 
@@ -28,6 +28,9 @@ var series = root.container.children.push(am5wc.WordCloud.new(root, {
   angles: [0]
 }));
 
+
+
+
 var colorSet = am5.ColorSet.new(root, { step: 1 });
 
 series.labels.template.setAll({
@@ -43,13 +46,22 @@ series.labels.template.setup = function(label) {
 }
 
 async function fetchData() {
+
                         const response = await fetch('/chart-data');
                         const data = await response.json();
                         console.log('Data fetched:', data);
                         series.data.pushAll(data);
 
                 };
-    fetchData();
+async function fetchAllData() {
+
+                        const response = await fetch('/get-all-data');
+                        const data = await response.json();
+                        console.log('Data fetched:', data);
+                        series.data.pushAll(data);
+
+                };
+    fetchAllData();
     setInterval(fetchData, 5000);
 
 }); // end am5.ready()
