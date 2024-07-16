@@ -7,8 +7,6 @@ import random
 
 all_messages = []
 messages = []
-words = []
-_old_size = len(messages)
 
 @aiohttp_jinja2.template('index.html')
 async def index(request):
