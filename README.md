@@ -1,2 +1,2 @@
 Отображение сообщений.
-![Demo](./git_re_gif.gif)
+![Demo](./git_res_gif.gif)
